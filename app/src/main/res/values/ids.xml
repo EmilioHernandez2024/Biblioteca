@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <item name="recyclerLibrosRecientes" type="id" />
-    <item name="textTitulo" type="id" />
-    <item name="imageLibro" type="id" />
-
-</resources>
