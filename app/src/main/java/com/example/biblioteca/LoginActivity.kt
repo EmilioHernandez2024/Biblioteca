@@ -34,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
             val password = passwordEditText.text.toString()
 
             // Verifica si el usuario y la contraseña coinciden con los datos predeterminados
-            if (username == "usuario" && password == "contraseña") {
+            if (username == "usuario" && password == "123456") {
                 // Guarda el estado de inicio de sesión en SharedPreferences
                 sharedPreferences.edit().putBoolean("is_logged_in", true).apply()
 

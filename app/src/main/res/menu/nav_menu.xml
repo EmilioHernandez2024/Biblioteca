@@ -24,7 +24,9 @@
                 android:id="@+id/nav_switch"
                 android:title="@string/modo_noche"
                 app:actionViewClass="com.google.android.material.switchmaterial.SwitchMaterial"
-                app:showAsAction="ifRoom"/>
+                app:showAsAction="ifRoom"
+                android:enabled="false"
+                android:focusable="false"/>
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/logout"
