@@ -106,11 +106,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
     private fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager.popBackStack(null, androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null) // Guarda el estado anterior en la pila de retroceso
             .commit()
         currentFragment = fragment
     }
+
 
     // Manejar los clics del menú de navegación
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

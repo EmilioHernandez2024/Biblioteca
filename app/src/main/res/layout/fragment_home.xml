@@ -6,28 +6,47 @@
     android:layout_height="match_parent"
     tools:context="fragment.Home">
 
-
-    <FrameLayout
-        android:id="@+id/home_container"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
 
+        <!-- Texto para los libros añadidos recientemente -->
         <TextView
             android:id="@+id/Titulo1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/a_adidos_recientemente"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:paddingBottom="8dp" />
 
-    </FrameLayout>
+        <!-- Carrusel de libros recientes -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerLibrosRecientes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="16dp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerLibrosRecientes"
-        android:layout_width="match_parent"
-        android:layout_height="675dp"
-        android:orientation="horizontal"
-        app:layout_anchor="@+id/home_container"
-        app:layout_anchorGravity="center" />
+        <!-- Texto para las categorías -->
+        <TextView
+            android:id="@+id/TituloCategorias"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Categorías de Libros"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingBottom="8dp" />
+
+        <!-- Lista vertical de categorías -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerCategorias"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp" />
+
+    </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
