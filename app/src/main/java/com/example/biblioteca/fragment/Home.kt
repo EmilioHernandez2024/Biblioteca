@@ -21,34 +21,33 @@ class Home : Fragment(R.layout.fragment_home) {
 
         // Lista de libros recientes (Sin categoría)
         val librosRecientes = listOf(
-            Libro("Matemática III", R.drawable.ic_launcher_foreground),
-            Libro("Física I", R.drawable.ic_launcher_foreground),
-            Libro("Ingeniería de Software", R.drawable.ic_launcher_foreground)
+            Libro("Matemática III", R.drawable.ic_launcher_foreground, "Ingeniería"),
+            Libro("Física I", R.drawable.ic_launcher_foreground, "Física"),
+            Libro("Ingeniería de Software", R.drawable.ic_launcher_foreground, "Ingeniería")
         )
 
-        // Lista de categorías con libros
+        // Lista de categorías con libros e imágenes
         val categorias = listOf(
             CategoriaLibro("Ingeniería", listOf(
-                Libro("Matemática III", R.drawable.ic_launcher_foreground),
-                Libro("Cálculo II", R.drawable.ic_launcher_foreground)
-            )),
+                Libro("Matemática III", R.drawable.ic_launcher_foreground, "Ingeniería"),
+                Libro("Cálculo II", R.drawable.ic_launcher_foreground, "Ingeniería")
+            ), R.drawable.ic_engineering), // Agrega la imagen
             CategoriaLibro("Programación", listOf(
-                Libro("Introducción a Java", R.drawable.ic_launcher_foreground),
-                Libro("Android Studio Básico", R.drawable.ic_launcher_foreground)
-            )),
+                Libro("Introducción a Java", R.drawable.ic_launcher_foreground, "Programación"),
+                Libro("Android Studio Básico", R.drawable.ic_launcher_foreground, "Programación")
+            ), R.drawable.ic_programming), // Agrega la imagen
             CategoriaLibro("Física", listOf(
-                Libro("Física I", R.drawable.ic_launcher_foreground),
-                Libro("Termodinámica", R.drawable.ic_launcher_foreground)
-            ))
+                Libro("Física I", R.drawable.ic_launcher_foreground, "Física"),
+                Libro("Termodinámica", R.drawable.ic_launcher_foreground, "Física")
+            ), R.drawable.ic_physics) // Agrega la imagen
         )
 
-        // Adaptador para libros recientes (horizontal)
+        // Adaptador para libros recientes con carrusel
         recyclerLibrosRecientes.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        recyclerLibrosRecientes.adapter = LibroAdapter(librosRecientes)
+        recyclerLibrosRecientes.adapter = LibroAdapter(librosRecientes, loop = true)
 
-        // Adaptador para categorías (vertical)
+        // Adaptador para categorías
         recyclerCategorias.layoutManager = LinearLayoutManager(requireContext())
-        recyclerCategorias.adapter = CategoriaAdapter(categorias)
+        recyclerCategorias.adapter = CategoriaAdapter(requireContext(), categorias) // Pasa la lista de CategoriaLibro
     }
 }
-

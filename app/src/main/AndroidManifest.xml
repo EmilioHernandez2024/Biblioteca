@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity"/>
+        <activity android:name=".LibrosCategoriaActivity" />
         <activity android:name=".MainActivity"/>
     </application>
 

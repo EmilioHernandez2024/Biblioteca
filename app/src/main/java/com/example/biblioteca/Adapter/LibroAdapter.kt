@@ -9,7 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.biblioteca.R
 import com.example.biblioteca.model.Libro
 
-class LibroAdapter(private val libros: List<Libro>) : RecyclerView.Adapter<LibroAdapter.LibroViewHolder>() {
+class LibroAdapter(
+    private val libros: List<Libro>,
+    private val loop: Boolean = false // ← nuevo parámetro
+) : RecyclerView.Adapter<LibroAdapter.LibroViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LibroViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_libro, parent, false)
@@ -17,13 +20,13 @@ class LibroAdapter(private val libros: List<Libro>) : RecyclerView.Adapter<Libro
     }
 
     override fun onBindViewHolder(holder: LibroViewHolder, position: Int) {
-        val libro = libros[position % libros.size]
+        val libro = if (loop) libros[position % libros.size] else libros[position]
         holder.tituloLibro.text = libro.titulo
         holder.imagenLibro.setImageResource(libro.imagenResId)
     }
 
     override fun getItemCount(): Int {
-        return Int.MAX_VALUE // Para simular un carrusel infinito
+        return if (loop) Int.MAX_VALUE else libros.size
     }
 
     class LibroViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
