@@ -1,24 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="16dp">
-
-    <ImageView
-        android:id="@+id/imageCategoria"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_placeholder_image" />
+    android:orientation="vertical"
+    android:padding="8dp">
 
     <TextView
         android:id="@+id/textCategoriaTitulo"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginStart="16dp"
-        android:text="@string/category_text"
-        android:textSize="18sp" />
+        android:text="Categoría"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:paddingBottom="8dp" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerLibrosCategoria"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" />
 </LinearLayout>

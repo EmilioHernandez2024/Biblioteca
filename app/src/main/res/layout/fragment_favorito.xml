@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutFavoritos"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fragment.FragmentFavorito">
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <TextView
+        android:id="@+id/textTituloFavoritos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/favoritos"
-        android:textSize="30sp"
-        android:layout_centerInParent="true"
-        android:textColor="#8692f7"/>
+        android:text="Libros Favoritos"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginBottom="12dp" />
 
-</RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerFavoritos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="8dp" />
+</LinearLayout>

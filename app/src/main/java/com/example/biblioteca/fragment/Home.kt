@@ -1,53 +1,60 @@
 package com.example.biblioteca.fragment
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.biblioteca.MainActivity
 import com.example.biblioteca.R
 import com.example.biblioteca.adapter.CategoriaAdapter
 import com.example.biblioteca.adapter.LibroAdapter
-import com.example.biblioteca.model.CategoriaLibro
-import com.example.biblioteca.model.Libro
+import com.example.biblioteca.utils.LibroData
 
-class Home : Fragment(R.layout.fragment_home) {
+class Home : Fragment() {
+
+    private lateinit var recyclerViewRecientes: RecyclerView
+    private lateinit var recyclerViewCategorias: RecyclerView
+    private lateinit var libroAdapter: LibroAdapter
+    private lateinit var categoriaAdapter: CategoriaAdapter
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_home, container, false)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recyclerLibrosRecientes = view.findViewById<RecyclerView>(R.id.recyclerLibrosRecientes)
-        val recyclerCategorias = view.findViewById<RecyclerView>(R.id.recyclerCategorias)
+        // Asegúrate que los IDs coincidan con tu XML
+        recyclerViewRecientes = view.findViewById(R.id.recyclerLibrosRecientes)
+        recyclerViewCategorias = view.findViewById(R.id.recyclerCategorias)
 
-        // Lista de libros recientes (Sin categoría)
-        val librosRecientes = listOf(
-            Libro("Matemática III", R.drawable.ic_launcher_foreground, "Ingeniería"),
-            Libro("Física I", R.drawable.ic_launcher_foreground, "Física"),
-            Libro("Ingeniería de Software", R.drawable.ic_launcher_foreground, "Ingeniería")
-        )
+        // Adapter para libros recientes
+        libroAdapter = LibroAdapter(LibroData.librosRecientes) { libro ->
+            val fragment = FragmentDetalleLibro.newInstance(libro.titulo)
+            (activity as? MainActivity)?.replaceFragment(FragmentDetalleLibro.newInstance(libro.titulo))
 
-        // Lista de categorías con libros e imágenes
-        val categorias = listOf(
-            CategoriaLibro("Ingeniería", listOf(
-                Libro("Matemática III", R.drawable.ic_launcher_foreground, "Ingeniería"),
-                Libro("Cálculo II", R.drawable.ic_launcher_foreground, "Ingeniería")
-            ), R.drawable.ic_engineering), // Agrega la imagen
-            CategoriaLibro("Programación", listOf(
-                Libro("Introducción a Java", R.drawable.ic_launcher_foreground, "Programación"),
-                Libro("Android Studio Básico", R.drawable.ic_launcher_foreground, "Programación")
-            ), R.drawable.ic_programming), // Agrega la imagen
-            CategoriaLibro("Física", listOf(
-                Libro("Física I", R.drawable.ic_launcher_foreground, "Física"),
-                Libro("Termodinámica", R.drawable.ic_launcher_foreground, "Física")
-            ), R.drawable.ic_physics) // Agrega la imagen
-        )
+        }
 
-        // Adaptador para libros recientes con carrusel
-        recyclerLibrosRecientes.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        recyclerLibrosRecientes.adapter = LibroAdapter(librosRecientes, loop = true)
+        recyclerViewRecientes.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        recyclerViewRecientes.adapter = libroAdapter
 
-        // Adaptador para categorías
-        recyclerCategorias.layoutManager = LinearLayoutManager(requireContext())
-        recyclerCategorias.adapter = CategoriaAdapter(requireContext(), categorias) // Pasa la lista de CategoriaLibro
+        // Adapter para categorías
+        categoriaAdapter = CategoriaAdapter(LibroData.categorias) { libro ->
+            val fragment = FragmentDetalleLibro.newInstance(libro.titulo)
+            (activity as? MainActivity)?.replaceFragment(FragmentDetalleLibro.newInstance(libro.titulo))
+
+        }
+
+        recyclerViewCategorias.layoutManager = LinearLayoutManager(requireContext())
+        recyclerViewCategorias.adapter = categoriaAdapter
     }
 }
+
+
+

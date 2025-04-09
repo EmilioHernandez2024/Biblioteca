@@ -10,27 +10,38 @@ import com.example.biblioteca.R
 import com.example.biblioteca.model.Libro
 
 class LibroAdapter(
-    private val libros: List<Libro>,
-    private val loop: Boolean = false // ← nuevo parámetro
+    private var libros: List<Libro>,
+    private val onLibroClick: (Libro) -> Unit
 ) : RecyclerView.Adapter<LibroAdapter.LibroViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LibroViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_libro, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_libro, parent, false)
         return LibroViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: LibroViewHolder, position: Int) {
-        val libro = if (loop) libros[position % libros.size] else libros[position]
-        holder.tituloLibro.text = libro.titulo
-        holder.imagenLibro.setImageResource(libro.imagenResId)
+        val libro = libros[position]
+        holder.bind(libro)
+        holder.itemView.setOnClickListener {
+            onLibroClick(libro)
+        }
     }
 
-    override fun getItemCount(): Int {
-        return if (loop) Int.MAX_VALUE else libros.size
+    override fun getItemCount(): Int = libros.size
+
+    fun updateLista(nuevaLista: List<Libro>) {
+        libros = nuevaLista
+        notifyDataSetChanged()
     }
 
     class LibroViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tituloLibro: TextView = itemView.findViewById(R.id.textTitulo)
-        val imagenLibro: ImageView = itemView.findViewById(R.id.imageLibro)
+        private val tituloLibro: TextView = itemView.findViewById(R.id.textTitulo)
+        private val imagenLibro: ImageView = itemView.findViewById(R.id.imageLibro)
+
+        fun bind(libro: Libro) {
+            tituloLibro.text = libro.titulo
+            imagenLibro.setImageResource(libro.imagen)
+        }
     }
 }

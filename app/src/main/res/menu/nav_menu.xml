@@ -16,6 +16,11 @@
             android:id="@+id/nav_favoritos"
             android:icon="@drawable/libro"
             android:title="@string/favoritos" />
+        <item
+            android:id="@+id/nav_buscar"
+            android:icon="@android:drawable/ic_menu_search"
+            android:title="@string/buscar" />
+
     </group>
 
     <item android:title="">

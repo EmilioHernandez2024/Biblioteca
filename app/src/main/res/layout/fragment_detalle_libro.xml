@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="?android:colorBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="8dp"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/btnRegresar"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Regresar" />
+
+        <TextView
+            android:id="@+id/tvTituloLibro"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Libro"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnFavorito"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Añadir a favorito" />
+
+            <Button
+                android:id="@+id/btnQuitarFavorito"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Quitar de favorito"
+                android:backgroundTint="#ff0000"
+                android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/pdfPlaceholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Descargar PDF" />
+
+    <ImageView
+        android:id="@+id/imageViewPDF"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/darker_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="8dp">
+
+        <Button
+            android:id="@+id/btnAnterior"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Anterior" />
+
+        <Button
+            android:id="@+id/btnSiguiente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Siguiente"
+            android:layout_marginStart="16dp" />
+    </LinearLayout>
+</LinearLayout>

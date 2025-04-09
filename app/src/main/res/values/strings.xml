@@ -20,7 +20,6 @@
     <string name="modo_dia">Modo Dia</string>
     <string name="modo_noche">Modo Noche</string>
     <string name="activar">Activar</string>
-    <string name="volver">volver</string>
-    <string name="category_text">Category Text</string>
+    <string name="buscar">Buscar</string>
 
 </resources>

@@ -3,7 +3,5 @@ package com.example.biblioteca.model
 
 data class CategoriaLibro(
     val nombre: String,
-    val libros: List<Libro>,
-    val imagenResId: Int)
-
-
+    val libros: List<Libro>
+)

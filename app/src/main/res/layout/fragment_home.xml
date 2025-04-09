@@ -41,11 +41,19 @@
             android:paddingBottom="8dp" />
 
         <!-- Lista vertical de categorías -->
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerCategorias"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="16dp" />
+            android:layout_marginTop="8dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:clipToPadding="false"
+            android:scrollbars="horizontal"
+            />
+
 
     </LinearLayout>
 

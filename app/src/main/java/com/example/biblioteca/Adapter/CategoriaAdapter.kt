@@ -3,38 +3,40 @@ package com.example.biblioteca.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.biblioteca.LibrosCategoriaActivity
 import com.example.biblioteca.R
-import android.content.Context
 import com.example.biblioteca.model.CategoriaLibro
+import com.example.biblioteca.model.Libro
 
-class CategoriaAdapter(private val context: Context, private val categorias: List<CategoriaLibro>) :
-    RecyclerView.Adapter<CategoriaAdapter.ViewHolder>() {
+class CategoriaAdapter(
+    private val categorias: List<CategoriaLibro>,
+    private val onLibroClick: (Libro) -> Unit
+) : RecyclerView.Adapter<CategoriaAdapter.CategoriaViewHolder>() {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val imageCategoria: ImageView = view.findViewById(R.id.imageCategoria)
-        val textCategoria: TextView = view.findViewById(R.id.textCategoriaTitulo)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriaViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_categoria, parent, false)
+        return CategoriaViewHolder(view)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_categoria, parent, false)
-        return ViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CategoriaViewHolder, position: Int) {
         val categoria = categorias[position]
-        holder.imageCategoria.setImageResource(categoria.imagenResId)
-        holder.textCategoria.text = categoria.nombre
+        holder.textTituloCategoria.text = categoria.nombre
 
-        holder.itemView.setOnClickListener {
-            val intent = LibrosCategoriaActivity.crearIntent(context, categoria.nombre)
-            context.startActivity(intent)
-        }
+        val layoutManager = LinearLayoutManager(holder.itemView.context, LinearLayoutManager.HORIZONTAL, false)
+        holder.recyclerLibros.layoutManager = layoutManager
+
+        val adapter = LibroAdapter(categoria.libros, onLibroClick) // ✅ ahora le pasamos el click
+        holder.recyclerLibros.adapter = adapter
     }
 
-    override fun getItemCount(): Int = categorias.size
+    override fun getItemCount(): Int {
+        return categorias.size
+    }
+
+    class CategoriaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val textTituloCategoria: TextView = itemView.findViewById(R.id.textCategoriaTitulo)
+        val recyclerLibros: RecyclerView = itemView.findViewById(R.id.recyclerLibrosCategoria)
+    }
 }
