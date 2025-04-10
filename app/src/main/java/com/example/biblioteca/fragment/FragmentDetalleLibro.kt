@@ -1,3 +1,4 @@
+// FragmentDetalleLibro.kt
 package com.example.biblioteca.fragment
 
 import android.content.Context
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment
 import com.example.biblioteca.R
 import com.example.biblioteca.model.Libro
 import com.example.biblioteca.utils.FavoritosManager
+import com.example.biblioteca.utils.ZoomableImageView
 import java.io.File
 import java.io.FileOutputStream
 
@@ -32,7 +34,7 @@ class FragmentDetalleLibro : Fragment() {
     private lateinit var btnFavorito: Button
     private lateinit var btnQuitarFavorito: Button
     private lateinit var btnDescargar: Button
-    private lateinit var pdfImage: ImageView
+    private lateinit var pdfImage: ZoomableImageView
     private lateinit var btnAnterior: Button
     private lateinit var btnSiguiente: Button
 
@@ -64,7 +66,7 @@ class FragmentDetalleLibro : Fragment() {
         btnFavorito = view.findViewById(R.id.btnFavorito)
         btnQuitarFavorito = view.findViewById(R.id.btnQuitarFavorito)
         btnDescargar = view.findViewById(R.id.pdfPlaceholder)
-        pdfImage = view.findViewById(R.id.imageViewPDF)
+        pdfImage = view.findViewById(R.id.imageViewPDF) as ZoomableImageView
         btnAnterior = view.findViewById(R.id.btnAnterior)
         btnSiguiente = view.findViewById(R.id.btnSiguiente)
 
@@ -116,6 +118,11 @@ class FragmentDetalleLibro : Fragment() {
         return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        pdfImage.post { pdfImage.fitToCenter() }
+    }
+
     private fun openRenderer() {
         val file = File(requireContext().cacheDir, pdfFileName)
         if (!file.exists()) {
@@ -137,6 +144,7 @@ class FragmentDetalleLibro : Fragment() {
             val bitmap = Bitmap.createBitmap(page.width, page.height, Bitmap.Config.ARGB_8888)
             page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
             pdfImage.setImageBitmap(bitmap)
+            pdfImage.fitToCenter()
         }
     }
 

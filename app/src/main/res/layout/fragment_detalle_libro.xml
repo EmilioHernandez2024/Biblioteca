@@ -8,48 +8,64 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="84dp"
         android:gravity="center_vertical"
-        android:layout_marginTop="8dp"
-        android:weightSum="3">
+        android:orientation="horizontal"
+        android:padding="16dp">
 
         <Button
             android:id="@+id/btnRegresar"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="Regresar" />
+            android:layout_width="90dp"
+            android:layout_height="60dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:drawableLeft="@drawable/regresar"
+            android:drawablePadding="8dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:padding="16dp"
+            android:text="" />
 
         <TextView
             android:id="@+id/tvTituloLibro"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Libro"
+            android:layout_weight="1"
+            android:text="Matemática III"
             android:textAlignment="center"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btnFavorito"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Añadir a favorito" />
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btnQuitarFavorito"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Quitar de favorito"
-                android:backgroundTint="#ff0000"
+                android:layout_width="90dp"
+                android:layout_height="60dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:drawableLeft="@drawable/favorito"
+                android:drawablePadding="8dp"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:padding="16dp"
+                android:text=""
                 android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btnFavorito"
+                android:layout_width="90dp"
+                android:layout_height="60dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:drawableLeft="@drawable/unfavorito"
+                android:drawablePadding="8dp"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:padding="16dp"
+
+                android:text="" />
+
         </LinearLayout>
     </LinearLayout>
 
@@ -60,34 +76,49 @@
         android:layout_marginTop="8dp"
         android:text="Descargar PDF" />
 
-    <ImageView
+    <com.example.biblioteca.utils.ZoomableImageView
         android:id="@+id/imageViewPDF"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:scaleType="fitCenter"
         android:adjustViewBounds="true"
         android:layout_marginTop="8dp"
-        android:background="@android:color/darker_gray" />
+        android:background="@android:color/darker_gray"
+        android:contentDescription="PDF page"
+        android:scaleType="matrix" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="8dp">
+        android:layout_marginTop="8dp"
+        >
 
         <Button
             android:id="@+id/btnAnterior"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Anterior" />
+            android:layout_width="90dp"
+            android:layout_height="60dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:drawableLeft="@drawable/regresar"
+            android:drawablePadding="8dp"
+            android:minWidth="10dp"
+            android:minHeight="0dp"
+            android:padding="16dp"
+            android:layout_marginEnd="160dp"
+            android:text=""  />
 
         <Button
             android:id="@+id/btnSiguiente"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Siguiente"
-            android:layout_marginStart="16dp" />
+            android:layout_width="90dp"
+            android:layout_height="60dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:drawableLeft="@drawable/adelante"
+            android:drawablePadding="8dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:padding="30dp"
+            android:layout_marginEnd="2dp"
+            android:text=""/>
     </LinearLayout>
 </LinearLayout>

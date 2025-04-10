@@ -52,7 +52,7 @@ class FragmentBuscar : Fragment(R.layout.fragment_buscar) {
         })
     }
 
-    // ✅ Esta función elimina acentos y pone todo en minúscula para comparar mejor
+    /* Esta función elimina acentos y pone  */
     private fun normalizarTexto(texto: String): String {
         return Normalizer.normalize(texto.lowercase(), Normalizer.Form.NFD)
             .replace(Regex("\\p{InCombiningDiacriticalMarks}+"), "")

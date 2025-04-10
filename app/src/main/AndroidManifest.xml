@@ -11,16 +11,21 @@
         android:roundIcon="@mipmap/biblioteca"
         android:supportsRtl="true"
         android:theme="@style/Theme.Biblioteca"
+        android:screenOrientation="portrait"
         tools:targetApi="31">
-        <activity android:name=".logins.LoginActivity"
+        <activity
+            android:name=".logins.LoginActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".logins.RegisterActivity"/>
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".logins.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

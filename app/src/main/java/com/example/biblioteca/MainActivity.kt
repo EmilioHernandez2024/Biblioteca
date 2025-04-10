@@ -100,8 +100,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         })
     }
 
-    /**
-     * Método centralizado para cambiar fragmentos
+    /*-*
+
      * @param fragment Fragment a mostrar
      * @param addToBackStack Boolean si se quiere agregar a la pila
      */
@@ -114,7 +114,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             transaction.addToBackStack(null)
         }
 
-        // Antes de añadir, limpiar todo si ya hay más de 1 acción
+        // Antes de añadir, limpiar
+        //si existe mas de 1 accion
         if (supportFragmentManager.backStackEntryCount > 0) {
             supportFragmentManager.popBackStackImmediate(null, 1)
         }
