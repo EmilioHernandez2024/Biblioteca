@@ -9,7 +9,6 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import androidx.appcompat.widget.AppCompatImageView
-import kotlin.math.min
 import kotlin.math.sqrt
 
 class ZoomableImageView(context: Context, attrs: AttributeSet?) : AppCompatImageView(context, attrs) {

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.biblioteca.MainActivity
+import com.example.biblioteca.HomeActivity
 import com.example.biblioteca.R
 import com.example.biblioteca.adapter.CategoriaAdapter
 import com.example.biblioteca.adapter.LibroAdapter
@@ -37,7 +37,7 @@ class Home : Fragment() {
         // Adapter para libros recientes
         libroAdapter = LibroAdapter(LibroData.librosRecientes) { libro ->
             val fragment = FragmentDetalleLibro.newInstance(libro.titulo)
-            (activity as? MainActivity)?.replaceFragment(FragmentDetalleLibro.newInstance(libro.titulo))
+            (activity as? HomeActivity)?.replaceFragment(FragmentDetalleLibro.newInstance(libro.titulo))
 
         }
 
@@ -47,7 +47,7 @@ class Home : Fragment() {
         // Adapter para categorías
         categoriaAdapter = CategoriaAdapter(LibroData.categorias) { libro ->
             val fragment = FragmentDetalleLibro.newInstance(libro.titulo)
-            (activity as? MainActivity)?.replaceFragment(FragmentDetalleLibro.newInstance(libro.titulo))
+            (activity as? HomeActivity)?.replaceFragment(FragmentDetalleLibro.newInstance(libro.titulo))
 
         }
 

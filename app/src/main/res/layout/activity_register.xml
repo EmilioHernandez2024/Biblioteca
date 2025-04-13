@@ -8,14 +8,14 @@
     android:gravity="center">
 
 
-<EditText
-        android:id="@+id/etRegisterEmail"
+    <EditText
+        android:id="@+id/etEmailRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Correo electrónico"/>
 
     <EditText
-        android:id="@+id/etRegisterPassword"
+        android:id="@+id/etPasswordRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Contraseña"

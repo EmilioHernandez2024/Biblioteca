@@ -21,5 +21,6 @@
     <string name="modo_noche">Modo Noche</string>
     <string name="activar">Activar</string>
     <string name="buscar">Buscar</string>
+    <string name="recordar_sesi_n">Recordar sesión</string>
 
 </resources>
