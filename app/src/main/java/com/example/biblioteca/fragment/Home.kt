@@ -36,8 +36,8 @@ class Home : Fragment() {
 
         // Adapter para libros recientes
         libroAdapter = LibroAdapter(LibroData.librosRecientes) { libro ->
-            val fragment = FragmentDetalleLibro.newInstance(libro.titulo)
-            (activity as? HomeActivity)?.replaceFragment(FragmentDetalleLibro.newInstance(libro.titulo))
+            val fragment = FragmentDetalleLibro.newInstance(libro)
+            (activity as? HomeActivity)?.replaceFragment(FragmentDetalleLibro.newInstance(libro))
 
         }
 
@@ -46,8 +46,8 @@ class Home : Fragment() {
 
         // Adapter para categorías
         categoriaAdapter = CategoriaAdapter(LibroData.categorias) { libro ->
-            val fragment = FragmentDetalleLibro.newInstance(libro.titulo)
-            (activity as? HomeActivity)?.replaceFragment(FragmentDetalleLibro.newInstance(libro.titulo))
+            val fragment = FragmentDetalleLibro.newInstance(libro)
+            (activity as? HomeActivity)?.replaceFragment(FragmentDetalleLibro.newInstance(libro))
 
         }
 

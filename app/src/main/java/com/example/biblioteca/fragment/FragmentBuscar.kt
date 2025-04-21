@@ -28,7 +28,7 @@ class FragmentBuscar : Fragment(R.layout.fragment_buscar) {
         val todosLosLibros = LibroData.todosLosLibros.toMutableList()
 
         adapter = LibroAdapter(todosLosLibros) { libro ->
-            val fragment = FragmentDetalleLibro.newInstance(libro.titulo)
+            val fragment = FragmentDetalleLibro.newInstance(libro)
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .addToBackStack(null)

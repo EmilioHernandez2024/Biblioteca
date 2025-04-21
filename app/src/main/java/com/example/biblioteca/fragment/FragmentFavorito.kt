@@ -38,7 +38,7 @@ class FragmentFavorito : Fragment() {
         listaFavoritos = FavoritosManager.obtenerFavoritos(requireContext(), usuario)
 
         adapter = LibroAdapter(listaFavoritos) { libro ->
-            val fragment = FragmentDetalleLibro.newInstance(libro.titulo)
+            val fragment = FragmentDetalleLibro.newInstance(libro)
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .addToBackStack(null)

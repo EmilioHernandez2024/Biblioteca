@@ -14,12 +14,29 @@
         android:layout_height="wrap_content"
         android:hint="Correo electrónico"/>
 
-    <EditText
-        android:id="@+id/etPasswordRegister"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Contraseña"
-        android:inputType="textPassword"/>
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/etPasswordRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Contraseña"
+            android:paddingEnd="48dp"
+            android:inputType="textPassword"/>
+
+        <ImageButton
+            android:id="@+id/btnTogglePassword"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="8dp"
+            android:contentDescription="Mostrar contraseña"
+            android:src="@drawable/ic_visibility" />
+    </RelativeLayout>
 
     <Button
         android:id="@+id/btnRegister"

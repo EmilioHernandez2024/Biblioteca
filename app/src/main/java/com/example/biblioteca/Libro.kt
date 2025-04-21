@@ -6,9 +6,11 @@ import com.example.biblioteca.R
 
 data class Libro(
     val titulo: String,
+    val pdfUrl: String,
     val imagen: Int
 ) : Parcelable{
     constructor(parcel: Parcel) : this(
+        parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readInt()
     )
@@ -16,6 +18,7 @@ data class Libro(
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(titulo)
         parcel.writeInt(imagen)
+        parcel.writeString(pdfUrl)
     }
 
     override fun describeContents(): Int = 0

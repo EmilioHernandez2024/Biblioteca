@@ -26,4 +26,5 @@ class PreferencesManager(context: Context) {
     fun clearLoginState() {
         sharedPreferences.edit().clear().apply()
     }
+
 }

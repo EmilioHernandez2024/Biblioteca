@@ -1,9 +1,11 @@
 // FragmentDetalleLibro.kt
 package com.example.biblioteca.fragment
 
+import android.app.DownloadManager
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.pdf.PdfRenderer
+import android.net.Uri
 import android.os.*
 import android.view.*
 import android.widget.*
@@ -15,15 +17,18 @@ import com.example.biblioteca.utils.FavoritosManager
 import com.example.biblioteca.utils.ZoomableImageView
 import java.io.File
 import java.io.FileOutputStream
+import java.net.HttpURLConnection
+import java.net.URL
 
 class FragmentDetalleLibro : Fragment() {
 
     companion object {
-        private const val ARG_TITULO = "titulo_libro"
-        fun newInstance(titulo: String): FragmentDetalleLibro {
+        private const val ARG_LIBRO = "libro_completo"
+
+        fun newInstance(libro: Libro): FragmentDetalleLibro {
             val fragment = FragmentDetalleLibro()
             val args = Bundle()
-            args.putString(ARG_TITULO, titulo)
+            args.putParcelable(ARG_LIBRO, libro)
             fragment.arguments = args
             return fragment
         }
@@ -33,7 +38,6 @@ class FragmentDetalleLibro : Fragment() {
     private lateinit var btnRegresar: Button
     private lateinit var btnFavorito: Button
     private lateinit var btnQuitarFavorito: Button
-    private lateinit var btnDescargar: Button
     private lateinit var pdfImage: ZoomableImageView
     private lateinit var btnAnterior: Button
     private lateinit var btnSiguiente: Button
@@ -43,12 +47,11 @@ class FragmentDetalleLibro : Fragment() {
     private var currentPage: PdfRenderer.Page? = null
     private var parcelFileDescriptor: ParcelFileDescriptor? = null
 
-    private var tituloLibro: String? = null
-    private val pdfFileName = "Seguridad.pdf"
+    private var libro: Libro? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        tituloLibro = arguments?.getString(ARG_TITULO)
+        libro = arguments?.getParcelable(ARG_LIBRO)
 
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             parentFragmentManager.popBackStack()
@@ -65,74 +68,114 @@ class FragmentDetalleLibro : Fragment() {
         btnRegresar = view.findViewById(R.id.btnRegresar)
         btnFavorito = view.findViewById(R.id.btnFavorito)
         btnQuitarFavorito = view.findViewById(R.id.btnQuitarFavorito)
-        btnDescargar = view.findViewById(R.id.pdfPlaceholder)
         pdfImage = view.findViewById(R.id.imageViewPDF) as ZoomableImageView
         btnAnterior = view.findViewById(R.id.btnAnterior)
         btnSiguiente = view.findViewById(R.id.btnSiguiente)
 
-        tvTitulo.text = tituloLibro
-
-        val prefs = requireContext().getSharedPreferences("login_prefs", Context.MODE_PRIVATE)
-        val usuario = prefs.getString("usuario_actual", "usuario") ?: "usuario"
-        val libro = Libro(tituloLibro ?: "Sin título", R.drawable.ic_launcher_foreground)
-        val esFavorito = FavoritosManager.esFavorito(requireContext(), usuario, libro)
-
-        btnFavorito.visibility = if (esFavorito) View.GONE else View.VISIBLE
-        btnQuitarFavorito.visibility = if (esFavorito) View.VISIBLE else View.GONE
-
-        btnFavorito.setOnClickListener {
-            FavoritosManager.agregarFavorito(requireContext(), usuario, libro)
-            Toast.makeText(requireContext(), "Libro agregado a favoritos", Toast.LENGTH_SHORT).show()
-            btnFavorito.visibility = View.GONE
-            btnQuitarFavorito.visibility = View.VISIBLE
-        }
-
-        btnQuitarFavorito.setOnClickListener {
-            FavoritosManager.eliminarFavorito(requireContext(), usuario, libro)
-            Toast.makeText(requireContext(), "Libro eliminado de favoritos", Toast.LENGTH_SHORT).show()
-            btnFavorito.visibility = View.VISIBLE
-            btnQuitarFavorito.visibility = View.GONE
-        }
-
-        btnRegresar.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
-        }
-
-        btnAnterior.setOnClickListener {
-            if (currentPageIndex > 0) {
-                currentPageIndex--
-                showPage(currentPageIndex)
+        val botonDescargar = view.findViewById<Button>(R.id.pdfPlaceholder)
+        botonDescargar.setOnClickListener {
+            libro?.let {
+                descargarConDownloadManager(it.pdfUrl, "${it.titulo}.pdf")
             }
         }
 
-        btnSiguiente.setOnClickListener {
-            if (pdfRenderer != null && currentPageIndex < (pdfRenderer!!.pageCount - 1)) {
-                currentPageIndex++
-                showPage(currentPageIndex)
-            }
-        }
+        libro?.let { libro ->
+            tvTitulo.text = libro.titulo
 
-        openRenderer()
-        showPage(currentPageIndex)
+            val prefs = requireContext().getSharedPreferences("login_prefs", Context.MODE_PRIVATE)
+            val usuario = prefs.getString("usuario_actual", "usuario") ?: "usuario"
+
+            val esFavorito = FavoritosManager.esFavorito(requireContext(), usuario, libro)
+            btnFavorito.visibility = if (esFavorito) View.GONE else View.VISIBLE
+            btnQuitarFavorito.visibility = if (esFavorito) View.VISIBLE else View.GONE
+
+            btnFavorito.setOnClickListener {
+                FavoritosManager.agregarFavorito(requireContext(), usuario, libro)
+                Toast.makeText(requireContext(), "Libro agregado a favoritos", Toast.LENGTH_SHORT).show()
+                btnFavorito.visibility = View.GONE
+                btnQuitarFavorito.visibility = View.VISIBLE
+            }
+
+            btnQuitarFavorito.setOnClickListener {
+                FavoritosManager.eliminarFavorito(requireContext(), usuario, libro)
+                Toast.makeText(requireContext(), "Libro eliminado de favoritos", Toast.LENGTH_SHORT).show()
+                btnFavorito.visibility = View.VISIBLE
+                btnQuitarFavorito.visibility = View.GONE
+            }
+
+            btnRegresar.setOnClickListener {
+                parentFragmentManager.popBackStack()
+            }
+
+            btnAnterior.setOnClickListener {
+                if (currentPageIndex > 0) {
+                    currentPageIndex--
+                    showPage(currentPageIndex)
+                }
+            }
+
+            btnSiguiente.setOnClickListener {
+                if (pdfRenderer != null && currentPageIndex < (pdfRenderer!!.pageCount - 1)) {
+                    currentPageIndex++
+                    showPage(currentPageIndex)
+                }
+            }
+
+            descargarPdfDesdeUrl(libro.pdfUrl)
+        }
 
         return view
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         pdfImage.post { pdfImage.fitToCenter() }
     }
 
-    private fun openRenderer() {
-        val file = File(requireContext().cacheDir, pdfFileName)
-        if (!file.exists()) {
-            requireContext().assets.open(pdfFileName).use { asset ->
-                FileOutputStream(file).use { output ->
-                    asset.copyTo(output)
+    private fun descargarPdfDesdeUrl(urlPdf: String) {
+        Thread {
+            try {
+                val url = URL(urlPdf)
+                val connection = url.openConnection() as HttpURLConnection
+                connection.requestMethod = "GET"
+                connection.connect()
+
+                val file = File(requireContext().cacheDir, "temp_pdf.pdf")
+                val output = FileOutputStream(file)
+                connection.inputStream.copyTo(output)
+                output.close()
+
+                activity?.runOnUiThread {
+                    openRenderer(file)
+                    showPage(currentPageIndex)
+                }
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+                activity?.runOnUiThread {
+                    Toast.makeText(requireContext(), "Error al cargar el PDF", Toast.LENGTH_SHORT).show()
                 }
             }
+        }.start()
+    }
+
+    private fun descargarConDownloadManager(urlPdf: String, nombreArchivo: String) {
+        val request = DownloadManager.Request(Uri.parse(urlPdf)).apply {
+            setTitle("Descargando $nombreArchivo")
+            setDescription("Descargando PDF...")
+            setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+            setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, nombreArchivo)
+            setMimeType("application/pdf")
+            setAllowedOverMetered(true)
+            setAllowedOverRoaming(true)
         }
 
+        val downloadManager = requireContext().getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        downloadManager.enqueue(request)
+
+        Toast.makeText(requireContext(), "Descarga iniciada", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun openRenderer(file: File) {
         parcelFileDescriptor = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY)
         pdfRenderer = PdfRenderer(parcelFileDescriptor!!)
     }

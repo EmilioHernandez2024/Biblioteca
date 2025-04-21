@@ -7,23 +7,64 @@ import com.example.biblioteca.model.Libro
 object LibroData {
 
     val librosRecientes = listOf(
-        Libro("Matemática III", R.drawable.ic_launcher_foreground),
-        Libro("Física I", R.drawable.ic_launcher_foreground),
-        Libro("Ingeniería de Software", R.drawable.ic_launcher_foreground)
+        Libro(
+            titulo = "Matemática III",
+            pdfUrl = "https://fra.cloud.appwrite.io/v1/storage/buckets/67f98648002cfc67b610/files/68017e3e003b830b144b/view?project=67f9710b0009513a166d&mode=admin",
+            imagen = R.drawable.ic_launcher_foreground
+        ),
+        Libro(
+            titulo = "Fisica IV",
+            pdfUrl = "https://fra.cloud.appwrite.io/v1/storage/buckets/67f98648002cfc67b610/files/68017e3e003b830b144b/view?project=67f9710b0009513a166d&mode=admin",
+            imagen = R.drawable.ic_launcher_foreground
+        ),
+        Libro(
+            titulo = " Cálculo II",
+            pdfUrl = "https://fra.cloud.appwrite.io/v1/storage/buckets/67f98648002cfc67b610/files/68017e3e003b830b144b/view?project=67f9710b0009513a166d&mode=admin",
+            imagen = R.drawable.ic_launcher_foreground
+        ),
     )
 
     val categorias = listOf(
         CategoriaLibro("Ingeniería", listOf(
-            Libro("Matemática III", R.drawable.ic_launcher_foreground),
-            Libro("Cálculo II", R.drawable.ic_launcher_foreground)
+            Libro(
+                titulo = " Cálculo II",
+                pdfUrl = "https://fra.cloud.appwrite.io/v1/storage/buckets/67f98648002cfc67b610/files/68017e3e003b830b144b/view?project=67f9710b0009513a166d&mode=admin",
+                imagen = R.drawable.ic_launcher_foreground
+            ),
+            Libro(
+                titulo = "Matemática III",
+                pdfUrl = "https://fra.cloud.appwrite.io/v1/storage/buckets/67f98648002cfc67b610/files/68017e3e003b830b144b/view?project=67f9710b0009513a166d&mode=admin",
+                imagen = R.drawable.ic_launcher_foreground
+            ),
         )),
         CategoriaLibro("Programación", listOf(
-            Libro("Introducción a Java", R.drawable.ic_launcher_foreground),
-            Libro("Android Studio Básico", R.drawable.ic_launcher_foreground)
+            Libro(
+                titulo = "Introducion a Java",
+                pdfUrl = "https://fra.cloud.appwrite.io/v1/storage/buckets/67f98648002cfc67b610/files/68017e3e003b830b144b/view?project=67f9710b0009513a166d&mode=admin",
+                imagen = R.drawable.ic_launcher_foreground
+            ),
+            Libro(
+                titulo = "Android studio Basico ",
+                pdfUrl = "https://fra.cloud.appwrite.io/v1/storage/buckets/67f98648002cfc67b610/files/68017e3e003b830b144b/view?project=67f9710b0009513a166d&mode=admin",
+                imagen = R.drawable.ic_launcher_foreground
+            )
         )),
         CategoriaLibro("Física", listOf(
-            Libro("Física I", R.drawable.ic_launcher_foreground),
-            Libro("Termodinámica", R.drawable.ic_launcher_foreground)
+            Libro(
+                titulo = "Fisica I",
+                pdfUrl = "https://fra.cloud.appwrite.io/v1/storage/buckets/67f98648002cfc67b610/files/68017e3e003b830b144b/view?project=67f9710b0009513a166d&mode=admin",
+                imagen = R.drawable.ic_launcher_foreground
+            ),
+            Libro(
+                titulo = "Fisica IV",
+                pdfUrl = "https://fra.cloud.appwrite.io/v1/storage/buckets/67f98648002cfc67b610/files/68017e3e003b830b144b/view?project=67f9710b0009513a166d&mode=admin",
+                imagen = R.drawable.ic_launcher_foreground
+            ),
+            Libro(
+                titulo = "Termodinamica",
+                pdfUrl = "https://fra.cloud.appwrite.io/v1/storage/buckets/67f98648002cfc67b610/files/68017e3e003b830b144b/view?project=67f9710b0009513a166d&mode=admin",
+                imagen = R.drawable.ic_launcher_foreground
+            ),
         ))
     )
 
