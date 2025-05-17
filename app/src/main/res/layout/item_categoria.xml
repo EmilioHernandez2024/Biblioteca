@@ -9,9 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Categoría"
-        android:textSize="20sp"
+        android:textSize="23sp"
         android:textStyle="bold"
-        android:paddingBottom="8dp" />
+        android:paddingBottom="18dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerLibrosCategoria"

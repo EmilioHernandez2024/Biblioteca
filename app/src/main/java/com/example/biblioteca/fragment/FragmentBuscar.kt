@@ -9,7 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.biblioteca.R
-import com.example.biblioteca.adapter.LibroAdapter
+import com.example.biblioteca.adapter.LibroBusquedaAdapter
+import com.example.biblioteca.model.Libro
 import com.example.biblioteca.utils.LibroData
 import java.text.Normalizer
 
@@ -17,7 +18,7 @@ class FragmentBuscar : Fragment(R.layout.fragment_buscar) {
 
     private lateinit var etBuscar: EditText
     private lateinit var recyclerResultados: RecyclerView
-    private lateinit var adapter: LibroAdapter
+    private lateinit var adapter: LibroBusquedaAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -27,7 +28,7 @@ class FragmentBuscar : Fragment(R.layout.fragment_buscar) {
 
         val todosLosLibros = LibroData.todosLosLibros.toMutableList()
 
-        adapter = LibroAdapter(todosLosLibros) { libro ->
+        adapter = LibroBusquedaAdapter(todosLosLibros) { libro ->
             val fragment = FragmentDetalleLibro.newInstance(libro)
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, fragment)
@@ -42,7 +43,8 @@ class FragmentBuscar : Fragment(R.layout.fragment_buscar) {
             override fun afterTextChanged(s: Editable?) {
                 val filtro = normalizarTexto(s.toString())
                 val filtrados = todosLosLibros.filter {
-                    normalizarTexto(it.titulo).contains(filtro)
+                    normalizarTexto(it.titulo).contains(filtro) ||
+                            normalizarTexto(it.categoria ?: "").contains(filtro)
                 }
                 adapter.updateLista(filtrados)
             }
@@ -52,7 +54,6 @@ class FragmentBuscar : Fragment(R.layout.fragment_buscar) {
         })
     }
 
-    /* Esta función elimina acentos y pone  */
     private fun normalizarTexto(texto: String): String {
         return Normalizer.normalize(texto.lowercase(), Normalizer.Form.NFD)
             .replace(Regex("\\p{InCombiningDiacriticalMarks}+"), "")

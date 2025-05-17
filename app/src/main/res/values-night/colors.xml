@@ -3,4 +3,8 @@
     <color name="black">#E0E0E0</color>
     <color name="white">#121212</color>
     <color name="lavender">#A5AEE8</color>
+    <color name="hintText">#FFFFFFFF</color>
+    <color name="border_color_dynamic">#FFFFFFFF</color>
+    <color name="edittext_background_dynamic">#FF424242</color>
+    <color name="edittext_border_dynamic">#FFFFFFFF</color>
 </resources>

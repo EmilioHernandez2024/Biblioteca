@@ -1,4 +1,3 @@
-// FragmentDetalleLibro.kt
 package com.example.biblioteca.fragment
 
 import android.app.DownloadManager
@@ -41,6 +40,7 @@ class FragmentDetalleLibro : Fragment() {
     private lateinit var pdfImage: ZoomableImageView
     private lateinit var btnAnterior: Button
     private lateinit var btnSiguiente: Button
+    private lateinit var progressBar: ProgressBar // Referencia al ProgressBar
 
     private var currentPageIndex = 0
     private var pdfRenderer: PdfRenderer? = null
@@ -71,6 +71,7 @@ class FragmentDetalleLibro : Fragment() {
         pdfImage = view.findViewById(R.id.imageViewPDF) as ZoomableImageView
         btnAnterior = view.findViewById(R.id.btnAnterior)
         btnSiguiente = view.findViewById(R.id.btnSiguiente)
+        progressBar = view.findViewById(R.id.progressBar) // Inicializa el ProgressBar
 
         val botonDescargar = view.findViewById<Button>(R.id.pdfPlaceholder)
         botonDescargar.setOnClickListener {
@@ -121,17 +122,21 @@ class FragmentDetalleLibro : Fragment() {
                 }
             }
 
+            // Iniciar la descarga del PDF cuando se crea la vista
             descargarPdfDesdeUrl(libro.pdfUrl)
         }
 
         return view
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         pdfImage.post { pdfImage.fitToCenter() }
     }
 
     private fun descargarPdfDesdeUrl(urlPdf: String) {
+        // Muestra el ProgressBar antes de iniciar la descarga
+        progressBar.visibility = View.VISIBLE
         Thread {
             try {
                 val url = URL(urlPdf)
@@ -147,12 +152,16 @@ class FragmentDetalleLibro : Fragment() {
                 activity?.runOnUiThread {
                     openRenderer(file)
                     showPage(currentPageIndex)
+                    // Oculta el ProgressBar una vez que el PDF se ha cargado
+                    progressBar.visibility = View.GONE
                 }
 
             } catch (e: Exception) {
                 e.printStackTrace()
                 activity?.runOnUiThread {
                     Toast.makeText(requireContext(), "Error al cargar el PDF", Toast.LENGTH_SHORT).show()
+                    // Oculta el ProgressBar en caso de error
+                    progressBar.visibility = View.GONE
                 }
             }
         }.start()

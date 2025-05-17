@@ -18,7 +18,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var passwordEditText: EditText
     private lateinit var btnTogglePassword: ImageButton
     private lateinit var btnRegister: Button
-    private lateinit var btnGoToLogin: Button
+    private lateinit var btnGoToLogin: TextView
     private lateinit var authService: AuthService
     private var passwordVisible = false
 
@@ -26,11 +26,21 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+        // Mostrar mensaje al entrar usando un AlertDialog
+        val builder = androidx.appcompat.app.AlertDialog.Builder(this)
+        builder.setTitle("Información")
+        builder.setMessage("No es necesario utilizar un correo real para registrar.")
+        builder.setPositiveButton("OK") { dialog, _ ->
+            dialog.dismiss()
+        }
+        val dialog = builder.create()
+        dialog.show()
+
         emailEditText = findViewById(R.id.etEmailRegister)
         passwordEditText = findViewById(R.id.etPasswordRegister)
         btnTogglePassword = findViewById(R.id.btnTogglePassword)
         btnRegister = findViewById(R.id.btnRegister)
-        btnGoToLogin = findViewById(R.id.btnGoToLogin)
+        btnGoToLogin = findViewById<TextView>(R.id.btnGoToLogin)
 
         authService = AuthService(this)
 
@@ -61,7 +71,13 @@ class RegisterActivity : AppCompatActivity() {
 
             // Validar el correo antes de continuar con el registro
             if (!isEmailValido(email)) {
-                Toast.makeText(this@RegisterActivity, "Por favor, ingrese un correo válido (gmail, hotmail, live,outlook.)", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@RegisterActivity, "Por favor, ingrese un correo válido (gmail, hotmail, outlook, live o ucad.edu.sv)", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Validar longitud mínima de la contraseña
+            if (password.length < 8) {
+                Toast.makeText(this@RegisterActivity, "La contraseña debe tener al menos 8 caracteres", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -84,7 +100,7 @@ class RegisterActivity : AppCompatActivity() {
 
     // Función para validar el correo con regex
     private fun isEmailValido(email: String): Boolean {
-        val emailRegex = Regex("^[A-Za-z0-9+_.-]+@(gmail|hotmail|outlook|live)\\.com$")
+        val emailRegex = Regex("^[A-Za-z0-9+_.-]+@(gmail|hotmail|outlook|live|ucad\\.edu\\.sv)$")
         return emailRegex.matches(email)
     }
 }

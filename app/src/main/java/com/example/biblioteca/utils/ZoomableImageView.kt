@@ -28,13 +28,13 @@ class ZoomableImageView(context: Context, attrs: AttributeSet?) : AppCompatImage
     private val gestureDetector: GestureDetector
 
     private var scaleFactor = 1f
-        private set // Hacer que la modificación directa sea privada
+        private set // Evitar modificación externa
     private val maxScale = 5f
     private val minScale = 1f
-    internal var saveScale = 1f // Para acceder desde el fragmento
+    internal var saveScale = 1f // Accesible desde el fragmento
         private set
-
-    // Listener para notificar al fragmento sobre el estado del zoom
+    private var isZoomed = false
+    // Listener para notificar cambios de zoom al fragmento
     var onZoomChangedListener: ((isZoomed: Boolean) -> Unit)? = null
 
     init {
@@ -42,6 +42,7 @@ class ZoomableImageView(context: Context, attrs: AttributeSet?) : AppCompatImage
         matrixScale.setTranslate(1f, 1f)
         imageMatrix = matrixScale
 
+        // Detector para gestos de pellizco (zoom)
         scaleDetector = ScaleGestureDetector(context, object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
             override fun onScaleBegin(detector: ScaleGestureDetector): Boolean {
                 mode = Mode.ZOOM
@@ -54,10 +55,10 @@ class ZoomableImageView(context: Context, attrs: AttributeSet?) : AppCompatImage
 
                 if (newScale in minScale..maxScale) {
                     saveScale = newScale
-                    scaleFactor = newScale // Actualizar el factor de escala actual
+                    scaleFactor = newScale
                     matrixScale.postScale(scale, scale, detector.focusX, detector.focusY)
                     imageMatrix = matrixScale
-                    onZoomChangedListener?.invoke(scaleFactor > minScale + 0.01f) // Notificar cambio de zoom
+                    onZoomChangedListener?.invoke(scaleFactor > minScale + 0.01f)
                 }
                 return true
             }
@@ -67,9 +68,26 @@ class ZoomableImageView(context: Context, attrs: AttributeSet?) : AppCompatImage
             }
         })
 
+        // Detector para gestos de doble tap
         gestureDetector = GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
             override fun onDoubleTap(e: MotionEvent): Boolean {
-                resetZoom()
+                if (!isZoomed) {
+                    // Si no está en zoom, hacer un único zoom (ej: 2x)
+                    val zoomFactor = 2f
+                    matrixScale.set(savedMatrix) // Reiniciar base
+                    matrixScale.postScale(zoomFactor, zoomFactor, width / 2f, height / 2f)
+                    imageMatrix = matrixScale
+
+                    saveScale = zoomFactor
+                    scaleFactor = zoomFactor
+                    isZoomed = true // Ya estamos en zoom
+
+                    onZoomChangedListener?.invoke(true)
+                } else {
+                    // Si ya está en zoom, resetear a normal
+                    resetZoom()
+                    isZoomed = false // Volvemos a modo normal
+                }
                 return true
             }
         })
@@ -77,7 +95,7 @@ class ZoomableImageView(context: Context, attrs: AttributeSet?) : AppCompatImage
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         scaleDetector.onTouchEvent(event)
-        gestureDetector.onTouchEvent(event) // Detectar doble toque
+        gestureDetector.onTouchEvent(event) // Detectar doble tap
 
         val pointCount = event.pointerCount
 
@@ -116,6 +134,7 @@ class ZoomableImageView(context: Context, attrs: AttributeSet?) : AppCompatImage
         return true
     }
 
+    // Calcula la distancia entre dos dedos (para detectar gesto de zoom)
     private fun spacing(event: MotionEvent): Float {
         if (event.pointerCount < 2) return 0f
         val x = event.getX(0) - event.getX(1)
@@ -123,6 +142,7 @@ class ZoomableImageView(context: Context, attrs: AttributeSet?) : AppCompatImage
         return sqrt(x * x + y * y)
     }
 
+    // Calcula el punto medio entre dos dedos
     private fun midPoint(point: PointF, event: MotionEvent) {
         if (event.pointerCount < 2) return
         val x = event.getX(0) + event.getX(1)
@@ -130,9 +150,10 @@ class ZoomableImageView(context: Context, attrs: AttributeSet?) : AppCompatImage
         point.set(x / 2, y / 2)
     }
 
+    // Ajustar la imagen al centro del view
     fun fitToCenter() {
         matrixScale.reset()
-        matrixScale.postTranslate(1f, 1f) // Reiniciar traslación por seguridad
+        matrixScale.postTranslate(1f, 1f) // Seguridad inicial
         val viewWidth = width.toFloat()
         val viewHeight = height.toFloat()
         val drawableWidth = drawable?.intrinsicWidth?.toFloat() ?: 0f
@@ -150,7 +171,7 @@ class ZoomableImageView(context: Context, attrs: AttributeSet?) : AppCompatImage
             imageMatrix = matrixScale
             saveScale = scale
             scaleFactor = scale
-            onZoomChangedListener?.invoke(false) // Notificar que ya no está zoomed
+            onZoomChangedListener?.invoke(false)
         } else {
             saveScale = 1f
             scaleFactor = 1f
@@ -159,6 +180,7 @@ class ZoomableImageView(context: Context, attrs: AttributeSet?) : AppCompatImage
         }
     }
 
+    // Método público para resetear el zoom manualmente
     fun resetZoom() {
         fitToCenter()
     }

@@ -8,4 +8,10 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="lavender">#8692f7</color>
+    <color name="hintText">#90A4AE</color>
+
+    <color name="border_color_dynamic">#FF000000</color>
+    <color name="edittext_background_dynamic">#FFFFFFFF</color>
+    <color name="edittext_border_dynamic">#FFB0B0B0</color>
+
 </resources>

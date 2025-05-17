@@ -1,69 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:gravity="center">
+    android:fillViewport="true"
+    android:background="@color/white">
 
-    <EditText
-        android:id="@+id/etEmail"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:autofillHints=""
-        android:hint="@string/correo_electr_nico"
-        android:inputType="textEmailAddress"
-        android:minHeight="48dp"
-        android:textColorHint="#546E7A" />
+        android:orientation="vertical"
+        android:padding="30dp"
+        android:gravity="center_horizontal">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/etPassword"
+        <!-- Card contenedor -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:autofillHints=""
-            android:hint="@string/contrase_a"
-            android:inputType="textPassword"
-            android:minHeight="48dp"
-            android:textColorHint="#546E7A" />
+            android:orientation="vertical"
+            android:background="@drawable/bg_card"
+            android:elevation="7dp"
+            android:padding="35dp"
+            android:layout_marginTop="120dp"
+            android:layout_marginBottom="24dp">
 
-        <ImageButton
-            android:id="@+id/btnTogglePassword"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="8dp"
-            android:contentDescription="Mostrar contraseña"
-            android:src="@drawable/ic_visibility" />
-    </RelativeLayout>
-    <CheckBox
-        android:id="@+id/checkRemember"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/recordar_sesi_n"
-        android:layout_marginTop="12dp"
-        android:layout_gravity="center_horizontal"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bienvenidos"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="24dp" />
 
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="@string/iniciar_sesi_n"
-        android:textColor="#263238" />
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/correo_electronico"
+                android:inputType="textEmailAddress"
+                android:textColorHint="@color/hintText"
+                android:textColor="@color/black"
+                android:background="@drawable/bg_edittext"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp" />
 
-    <Button
-        android:id="@+id/btnGoToRegister"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/registrars"
-        android:textColor="#263238" />
-</LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <EditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/contraseña"
+                    android:inputType="textPassword"
+                    android:background="@drawable/bg_edittext"
+                    android:textColorHint="@color/hintText"
+                    android:textColor="@color/black"
+                    android:padding="12dp"
+                    android:paddingEnd="48dp" />
+
+                <ImageButton
+                    android:id="@+id/btnTogglePassword"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="8dp"
+                    android:contentDescription="@string/mostrar_contrasena"
+                    android:src="@drawable/ic_visibility" />
+            </RelativeLayout>
+
+            <CheckBox
+                android:id="@+id/checkRemember"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/recordar_sesion"
+                android:layout_marginBottom="16dp"
+                android:textColor="@color/black"/>
+
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/iniciar_sesion"
+                android:backgroundTint="@color/lavender"
+                android:textColor="@color/black"
+                android:layout_marginBottom="12dp" />
+
+            <TextView
+                android:id="@+id/btnGoToRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/crear_cuenta"
+                android:textSize="14sp"
+                android:textColor="@color/lavender"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

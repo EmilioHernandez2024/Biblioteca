@@ -7,18 +7,21 @@ import com.example.biblioteca.R
 data class Libro(
     val titulo: String,
     val pdfUrl: String,
-    val imagen: Int
+    val imagen: String,
+    val categoria: String? = null
 ) : Parcelable{
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",
         parcel.readString() ?: "",
-        parcel.readInt()
+        parcel.readString() ?: "",
+        parcel.readString() // categoría puede ser null
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(titulo)
-        parcel.writeInt(imagen)
         parcel.writeString(pdfUrl)
+        parcel.writeString(imagen)
+        parcel.writeString(categoria)
     }
 
     override fun describeContents(): Int = 0

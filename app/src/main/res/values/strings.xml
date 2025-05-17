@@ -21,5 +21,15 @@
     <string name="activar">Activar</string>
     <string name="buscar">Buscar</string>
     <string name="recordar_sesi_n">Recordar sesión</string>
+    <string name="iniciar_sesion">Iniciar sesión</string>
+    <string name="crear_cuenta">¿No tienes cuenta? Regístrate</string>
+    <string name="mostrar_contrasena">Mostrar contraseña</string>
+    <string name="recordar_sesion">Recordar sesión</string>
+    <string name="contraseña">Contraseña</string>
+    <string name="correo_electronico">Correo electrónico</string>
+    <string name="bienvenidos">Bienvenido</string>
+    <string name="registrar">Registrar</string>
+    <string name="ya_cuenta">¿Ya tienes una cuenta? Inicia sesión</string>
+    <string name="mostrar_contrase_a">Mostrar contraseña</string>
 
 </resources>

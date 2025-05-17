@@ -10,14 +10,14 @@ import com.bumptech.glide.Glide
 import com.example.biblioteca.R
 import com.example.biblioteca.model.Libro
 
-class LibroAdapter(
+class LibroBusquedaAdapter(
     private var libros: List<Libro>,
     private val onLibroClick: (Libro) -> Unit
-) : RecyclerView.Adapter<LibroAdapter.LibroViewHolder>() {
+) : RecyclerView.Adapter<LibroBusquedaAdapter.LibroViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LibroViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_libro, parent, false)
+            .inflate(R.layout.item_libro_busqueda, parent, false)
         return LibroViewHolder(view)
     }
 
@@ -43,10 +43,10 @@ class LibroAdapter(
         fun bind(libro: Libro) {
             tituloLibro.text = libro.titulo
             Glide.with(itemView.context)
-                .load(libro.imagen) // Carga la URL de la imagen
-                .placeholder(R.drawable.ic_launcher_foreground) // Imagen de carga mientras se descarga (opcional)
-                .error(R.drawable.ic_visibility) // Imagen a mostrar si hay un error al cargar (opcional)
-                .into(imagenLibro) // Carga la imagen en el ImageView
+                .load(libro.imagen)
+                .placeholder(R.drawable.ic_launcher_foreground)
+                .error(R.drawable.ic_visibility)
+                .into(imagenLibro)
         }
     }
 }
