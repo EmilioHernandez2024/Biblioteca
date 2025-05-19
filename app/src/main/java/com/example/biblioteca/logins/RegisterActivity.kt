@@ -69,13 +69,29 @@ class RegisterActivity : AppCompatActivity() {
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
 
-            // Validar el correo antes de continuar con el registro
-            if (!isEmailValido(email)) {
-                Toast.makeText(this@RegisterActivity, "Por favor, ingrese un correo válido (gmail, hotmail, outlook, live o ucad.edu.sv)", Toast.LENGTH_SHORT).show()
+// Validaciones específicas de campos vacíos
+            if (email.isEmpty() && password.isEmpty()) {
+                Toast.makeText(this@RegisterActivity, "Por favor, llena todos los campos", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // Validar longitud mínima de la contraseña
+            if (email.isEmpty()) {
+                Toast.makeText(this@RegisterActivity, "Por favor, ingresa tu correo", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (password.isEmpty()) {
+                Toast.makeText(this@RegisterActivity, "Por favor, ingresa tu contraseña", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+// Validar el correo antes de continuar con el registro
+            if (!isEmailValido(email)) {
+                Toast.makeText(this@RegisterActivity, "Por favor, ingrese un correo válido (gmail, hotmail, outlook, live o institucional)", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+// Validar longitud mínima de la contraseña
             if (password.length < 8) {
                 Toast.makeText(this@RegisterActivity, "La contraseña debe tener al menos 8 caracteres", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -100,7 +116,7 @@ class RegisterActivity : AppCompatActivity() {
 
     // Función para validar el correo con regex
     private fun isEmailValido(email: String): Boolean {
-        val emailRegex = Regex("^[A-Za-z0-9+_.-]+@(gmail|hotmail|outlook|live|ucad\\.edu\\.sv)$")
+        val emailRegex = Regex("^[A-Za-z0-9+_.-]+@((gmail|hotmail|outlook|live)\\.com|ucad\\.edu\\.sv)$")
         return emailRegex.matches(email)
     }
 }

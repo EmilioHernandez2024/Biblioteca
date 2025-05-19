@@ -34,6 +34,7 @@ class AuthService(private val context: Context) {
             account.create(io.appwrite.ID.unique(), email, password)
             true
         } catch (e: Exception) {
+            //  Imprime el error en Logcat    e.printStackTrace()
             false
         }
     }
