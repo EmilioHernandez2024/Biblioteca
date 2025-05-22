@@ -4,6 +4,10 @@ import android.content.Context
 import io.appwrite.Client
 import io.appwrite.services.Account
 
+/**
+ *informaciones clave de la base de datos AppWrite
+ */
+
 object AppwriteClient {
     lateinit var client: Client
     lateinit var account: Account

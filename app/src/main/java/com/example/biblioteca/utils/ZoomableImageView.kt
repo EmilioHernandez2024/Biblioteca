@@ -11,6 +11,11 @@ import android.view.ScaleGestureDetector
 import androidx.appcompat.widget.AppCompatImageView
 import kotlin.math.sqrt
 
+/**
+ * aqui no explicare mucho pero hace funcionar el zoom,moverse  y tap
+ */
+
+
 class ZoomableImageView(context: Context, attrs: AttributeSet?) : AppCompatImageView(context, attrs) {
 
     private var matrixScale = Matrix()

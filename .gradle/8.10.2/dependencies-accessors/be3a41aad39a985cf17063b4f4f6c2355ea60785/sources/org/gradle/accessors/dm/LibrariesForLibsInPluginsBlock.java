@@ -297,7 +297,7 @@ public class LibrariesForLibsInPluginsBlock extends AbstractExternalDependencyFa
         public Provider<String> getAppcompat() { return getVersion("appcompat"); }
 
         /**
-         * Version alias <b>appwrite</b> with value <b>9.0.0</b>
+         * Version alias <b>appwrite</b> with value <b>7.0.0</b>
          * <p>
          * If the version is a rich version and cannot be represented as a
          * single version string, an empty string is returned.

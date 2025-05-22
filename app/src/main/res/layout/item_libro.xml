@@ -19,7 +19,7 @@
         android:id="@+id/textTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/t_tulo_del_libro"
+        android:text="@string/titulo_del_libro"
         android:textSize="14sp"
         android:textStyle="bold"
         android:textColor="?attr/colorOnSurface" />

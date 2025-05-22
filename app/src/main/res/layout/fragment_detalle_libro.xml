@@ -74,9 +74,9 @@
         android:id="@+id/pdfPlaceholder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:layout_marginTop="8dp"
-        android:text="Descargar PDF" />
+        android:text="@string/descargar_pdf" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -90,7 +90,7 @@
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
             android:background="@android:color/white"
-            android:contentDescription="PDF page"
+            android:contentDescription="@string/pdf_pagina"
             android:scaleType="matrix" />
 
         <ProgressBar

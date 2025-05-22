@@ -69,7 +69,7 @@ android:gravity="center">
             android:layout_centerVertical="true"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="8dp"
-            android:contentDescription="@string/mostrar_contrase_a"
+            android:contentDescription="@string/mostrar_contrasena"
             android:src="@drawable/ic_visibility" />
     </RelativeLayout>
 

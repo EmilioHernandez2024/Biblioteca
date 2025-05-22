@@ -69,34 +69,34 @@ class RegisterActivity : AppCompatActivity() {
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
 
-// Validaciones específicas de campos vacíos
+           // Validaciones específicas de campos vacíos
             if (email.isEmpty() && password.isEmpty()) {
                 Toast.makeText(this@RegisterActivity, "Por favor, llena todos los campos", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-
+            // Validar el correo antes de continuar con el registro
             if (email.isEmpty()) {
                 Toast.makeText(this@RegisterActivity, "Por favor, ingresa tu correo", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-
+            // Validar la contraseña antes de continuar con el registro
             if (password.isEmpty()) {
                 Toast.makeText(this@RegisterActivity, "Por favor, ingresa tu contraseña", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-// Validar el correo antes de continuar con el registro
+            // Validar el tipo de correo antes de continuar con el registro
             if (!isEmailValido(email)) {
                 Toast.makeText(this@RegisterActivity, "Por favor, ingrese un correo válido (gmail, hotmail, outlook, live o institucional)", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-// Validar longitud mínima de la contraseña
+            // Validar longitud mínima de la contraseña
             if (password.length < 8) {
                 Toast.makeText(this@RegisterActivity, "La contraseña debe tener al menos 8 caracteres", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-
+            //mensaje cuando se hizo exitosamente o no
             CoroutineScope(Dispatchers.Main).launch {
                 val result = authService.register(email, password)
                 if (result) {

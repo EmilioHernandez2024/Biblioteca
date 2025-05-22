@@ -5,10 +5,17 @@ import com.example.biblioteca.model.Libro
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
+/**
+ * es la actividad que maneja el proceso de preferencia de la cuenta
+ * se puede ver los libros favoritos que se han guardado y asu vez eliminarlo el proceso
+ */
+
 object FavoritosManager {
     private const val PREFS_NAME = "favoritos_prefs"
     private const val KEY_PREFIX = "favoritos_usuario_"
-
+    /**
+     * se puede ver que se guarda en gson los datos preferidos
+     */
     private val gson = Gson()
 
     fun agregarFavorito(context: Context, usuario: String, libro: Libro) {
