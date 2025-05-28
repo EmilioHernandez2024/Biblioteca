@@ -98,15 +98,24 @@ class RegisterActivity : AppCompatActivity() {
             }
             //mensaje cuando se hizo exitosamente o no
             CoroutineScope(Dispatchers.Main).launch {
-                val result = authService.register(email, password)
-                if (result) {
-                    Toast.makeText(this@RegisterActivity, "Registro exitoso", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
-                    finish()
-                } else {
-                    Toast.makeText(this@RegisterActivity, "Error al registrar", Toast.LENGTH_SHORT).show()
+                try {
+                    val result = authService.register(email, password)
+                    if (result) {
+                        Toast.makeText(this@RegisterActivity, "Registro exitoso", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
+                        finish()
+                    } else {
+                        Toast.makeText(this@RegisterActivity, "Error al registrar", Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: com.example.biblioteca.auth.EmailAlreadyExistsException) {
+                    // Captura la excepción personalizada si el correo ya está registrado
+                    Toast.makeText(this@RegisterActivity, e.message, Toast.LENGTH_SHORT).show()
+                } catch (e: Exception) {
+                    // Captura cualquier otra excepción inesperada
+                    Toast.makeText(this@RegisterActivity, "Ocurrió un error al registrar", Toast.LENGTH_SHORT).show()
                 }
             }
+
         }
 
         btnGoToLogin.setOnClickListener {

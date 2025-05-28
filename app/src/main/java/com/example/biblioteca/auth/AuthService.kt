@@ -46,14 +46,17 @@ class AuthService(private val context: Context) {
     }
 
     suspend fun register(email: String, password: String): Boolean {
-        // Intenta registrar un nuevo usuario con el email y la contraseña proporcionados.
         return try {
-            // Usa `ID.unique()` para generar un ID de usuario único automáticamente.
             account.create(io.appwrite.ID.unique(), email, password)
-            true // Retorna 'true' si el registro fue exitoso.
+            true
+        } catch (e: AppwriteException) {
+            // Si el error es porque el correo ya está registrado
+            if (e.code == 409) {
+                throw EmailAlreadyExistsException()
+            }
+            false
         } catch (e: Exception) {
-            // Si ocurre un error durante el registro (ej. email ya registrado, contraseña débil).
-            false // Retorna 'false' indicando que el registro falló.
+            false
         }
     }
 
