@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.biblioteca.R
 import com.example.biblioteca.adapter.LibroBusquedaAdapter
+import com.example.biblioteca.model.Libro
 import com.example.biblioteca.utils.LibroData
 import java.text.Normalizer
 /**

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.biblioteca.`1HomeActivity`
+import com.example.biblioteca.HomeActivity
 import com.example.biblioteca.R
 import com.example.biblioteca.adapter.CategoriaAdapter
 import com.example.biblioteca.adapter.LibroAdapter
@@ -54,7 +54,7 @@ class Home : Fragment() {
             // Llama a la función `replaceFragment` de la actividad principal (HomeActivity)
             // para mostrar el fragmento de detalle del libro. El `as? HomeActivity` es un
             // "safe cast" para asegurar que `activity` es una HomeActivity antes de intentar llamar al método.
-            (activity as? `1HomeActivity`)?.replaceFragment(FragmentDetalleLibro.newInstance(libro))
+            (activity as? HomeActivity)?.replaceFragment(FragmentDetalleLibro.newInstance(libro))
         }
 
 
@@ -69,7 +69,7 @@ class Home : Fragment() {
 
             // Similar al caso de libros recientes, reemplaza el fragmento actual por el de detalle del libro.
             val fragment = FragmentDetalleLibro.newInstance(libro)
-            (activity as? `1HomeActivity`)?.replaceFragment(FragmentDetalleLibro.newInstance(libro))
+            (activity as? HomeActivity)?.replaceFragment(FragmentDetalleLibro.newInstance(libro))
         }
 
         // Configura el LayoutManager para el RecyclerView de categorías.

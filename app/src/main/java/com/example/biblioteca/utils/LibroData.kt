@@ -2,6 +2,7 @@ package com.example.biblioteca.utils
 
 import com.example.biblioteca.R
 import com.example.biblioteca.model.CategoriaLibro
+import com.example.biblioteca.model.Libro
 
 /**
  * aqui es donde se agregan los libros con su url,ña url de la imagen y añadir su categoria para que el

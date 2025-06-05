@@ -7,7 +7,7 @@ import android.text.InputType
 import android.view.MotionEvent
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.example.biblioteca.`1HomeActivity`
+import com.example.biblioteca.HomeActivity
 import com.example.biblioteca.R
 import com.example.biblioteca.auth.AuthService
 import com.example.biblioteca.utils.PreferencesManager
@@ -82,7 +82,7 @@ class LoginActivity : AppCompatActivity() {
         // Comprueba si el usuario ya ha iniciado sesión.
         // Si es así, navega directamente a HomeActivity y finaliza esta actividad.
         if (prefs.isLoggedIn()) {
-            val intent = Intent(this, `1HomeActivity`::class.java)
+            val intent = Intent(this, HomeActivity::class.java)
 
             // Estas banderas aseguran que HomeActivity sea la única actividad en la pila
             // y que no se pueda volver a LoginActivity con el botón de retroceso.
@@ -113,7 +113,7 @@ class LoginActivity : AppCompatActivity() {
                     sharedPrefs.edit().putString("email", email).apply()
 
                     // Navega a HomeActivity, limpiando la pila de actividades.
-                    val intent = Intent(this@LoginActivity, `1HomeActivity`::class.java)
+                    val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                     finish() // Cierra LoginActivity.

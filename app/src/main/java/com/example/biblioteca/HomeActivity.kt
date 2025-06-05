@@ -32,7 +32,7 @@ import kotlinx.coroutines.withContext
  *  es la actividad principal de la aplicación después del inicio de sesión.
  * Contiene un [DrawerLayout] para la navegación, gestiona los fragmentos y el modo oscuro.
  */
-class `1HomeActivity` : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var drawerLayout: DrawerLayout // El diseño del cajón de navegación.
     private lateinit var sharedPreferences: SharedPreferences // Para acceder a las preferencias de la aplicación.
@@ -223,7 +223,7 @@ class `1HomeActivity` : AppCompatActivity(), NavigationView.OnNavigationItemSele
             R.id.nav_logout -> { // Cuando se selecciona la opción de cerrar sesión.
                 // Lanza una corrutina en el contexto de IO para realizar la operación de logout.
                 CoroutineScope(Dispatchers.IO).launch {
-                    val authService = AuthService(this@`1HomeActivity`) // Crea una instancia del servicio de autenticación.
+                    val authService = AuthService(this@HomeActivity) // Crea una instancia del servicio de autenticación.
                     val success = authService.logout() // Intenta cerrar la sesión.
 
                     // Una vez que la operación de logout ha terminado, cambia al hilo principal (Main)
@@ -231,12 +231,12 @@ class `1HomeActivity` : AppCompatActivity(), NavigationView.OnNavigationItemSele
                     withContext(Dispatchers.Main) {
                         // Limpiamos las preferencias de login manualmente, incluso si el logout de AuthService
                         // fallara, para asegurar que el usuario sea redirigido a LoginActivity.
-                        val prefs = PreferencesManager(this@`1HomeActivity`)
+                        val prefs = PreferencesManager(this@HomeActivity)
                         prefs.saveLoginState(false) // Establece el estado de login a falso.
                         prefs.saveRememberMe(false) // Desactiva "recordarme".
 
                         // Navega a LoginActivity y limpia la pila de actividades.
-                        val intent = Intent(this@`1HomeActivity`, LoginActivity::class.java)
+                        val intent = Intent(this@HomeActivity, LoginActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
                         finish() // Cierra HomeActivity.

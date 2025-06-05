@@ -11,6 +11,7 @@ import android.widget.*
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import com.example.biblioteca.R
+import com.example.biblioteca.model.Libro
 import com.example.biblioteca.utils.FavoritosManager
 import com.example.biblioteca.utils.ZoomableImageView
 import java.io.File
