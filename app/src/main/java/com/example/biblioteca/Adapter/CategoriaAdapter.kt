@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.biblioteca.R
 import com.example.biblioteca.model.CategoriaLibro
-import com.example.biblioteca.model.Libro
 
 /**
  * Adaptador para un RecyclerView que muestra una lista de categorías de libros.

@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.biblioteca.R
 import com.example.biblioteca.adapter.LibroAdapter
-import com.example.biblioteca.model.Libro
 import com.example.biblioteca.utils.FavoritosManager // Gestor para obtener la lista de libros favoritos.
 
 /**

@@ -1,7 +1,6 @@
 package com.example.biblioteca.utils
 
 import android.content.Context
-import com.example.biblioteca.model.Libro
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
